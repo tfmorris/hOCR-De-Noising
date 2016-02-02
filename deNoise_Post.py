@@ -1,8 +1,24 @@
 # -*- coding: utf-8 -*-
-#import sys
-#Add search path to 
+"""
+OCR denoising algorithm using bounding box information, as described in
 
-#sys.path.append('/home/anshulg/PythonPackages/lib/python')
+    Automatic assessment of OCR quality in historical documents Proc. AAAI, 2015.
+    http://psi.cse.tamu.edu/wp-content/uploads/2015/05/9965-44310-1-PB.pdf
+
+The neural net weights were trained off-line on 72,000 manually labelled
+bounding boxes from 159 historical documents from the Early Modern period
+(~1475-1800).
+
+This file originally lived in lib/denoise.  Use
+
+    git log --follow
+
+to see the full history.
+
+@author Anshul Gupta
+@licese Apache 2.0
+"""
+
 
 import bs4
 import numpy as np
@@ -75,6 +91,10 @@ def deNoise(filePath,fileName,debugFlag):
         
     def peakdetect(y_axis, x_axis = None, lookahead = 300, delta=0):
         """
+        Derived from https://gist.github.com/endolith/250860#file-peakdetect-py
+        by Eli Billauer who released it to the public domain 3.4.05
+
+        It was, in turn,
         Converted from/based on a MATLAB script at: 
         http://billauer.co.il/peakdet.html
         
@@ -824,6 +844,7 @@ def deNoise(filePath,fileName,debugFlag):
         hiddenOutput = tansig(IW*normDat + b1);
         outputActivation = (LW*hiddenOutput + b2)
         return softmax(outputActivation)
+
     #Extract word coordinate information, ocr conf and height and width information
     fileName1 = "%s%s"%(filePath,fileName) #"53211844_160.xml"
     if os.path.isfile(fileName1)==False:
