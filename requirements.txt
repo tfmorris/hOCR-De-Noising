@@ -1,0 +1,4 @@
+beautifulsoup4==4.3.2
+numpy==1.10.2
+scipy==0.16.1
+wheel==0.26.0
